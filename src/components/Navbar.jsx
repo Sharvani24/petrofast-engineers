@@ -32,7 +32,7 @@ const Navbar = () => {
             <img 
               src={logo} 
               alt="Petrofast Logo" 
-              className="h-10 lg:h-14 w-auto object-contain" 
+              className="h-10 lg:h-22 w-auto object-contain" 
             />
           </Link>
         </div>
