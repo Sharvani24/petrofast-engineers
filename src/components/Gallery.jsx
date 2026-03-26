@@ -1,15 +1,26 @@
 import React, { useState } from 'react';
 
+// 1. Import every image at the top
+// This tells Vite to include these files in the production build
+import bolts from '../assets/images/bolts.png';
+import flatWashers from '../assets/images/flatWashers.png';
+import squareWashers from '../assets/images/squareWashers.png';
+import headBolts from '../assets/images/headBolts.png';
+import pipes from '../assets/images/pipes.png';
+import rods from '../assets/images/rods.png';
+import rings from '../assets/images/rings.png';
+
 const Gallery = () => {
+  // 2. Use the imported variables in your array (No quotes!)
   const images = [
-    "src/assets/images/bolts.png",
-    "src/assets/images/flatWashers.png",
-    "src/assets/images/squareWashers.png",
-    "src/assets/images/headBolts.png",
-    "src/assets/images/pipes.png",
-    "src/assets/images/rods.png",
-    "src/assets/images/squareWashers.png",
-    "src/assets/images/rings.png",
+    bolts,
+    flatWashers,
+    squareWashers,
+    headBolts,
+    pipes,
+    rods,
+    squareWashers, // repeated per your original code
+    rings,
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -69,6 +80,7 @@ const Gallery = () => {
             {images.map((img, index) => (
               <div key={index} className="min-w-[25%] flex justify-center items-center"> 
                 <div className="p-1 w-[70%] aspect-square">
+                  {/* img is now a valid URL provided by Vite */}
                   <img 
                     src={img} 
                     alt={`Product ${index}`} 
