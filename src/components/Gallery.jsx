@@ -59,15 +59,12 @@ const Gallery = () => {
   });
 
   return (
-    <section className="w-full bg-white pt-12">
-      <div className="text-center mb-12">
-        <h2 
-          className="font-serif font-bold text-[#b00000]"
-          style={{ fontSize: '34px' }}
-        >
-          Products Gallery
-        </h2>
-      </div>
+    <section className="w-full bg-white pt-0 mt-0"> 
+  <div className="text-center mb-2"> 
+    <h2 className="font-serif font-bold text-[#b00000]" style={{ fontSize: '34px', marginTop: '0' }}>
+      Products Gallery
+    </h2>
+  </div>
 
       <div className="relative w-[98%] max-w-[1800px] mx-auto">
         <div className="bg-[#666] py-5 overflow-hidden relative">
