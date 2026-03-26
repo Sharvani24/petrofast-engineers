@@ -4,6 +4,7 @@ import logo from '../assets/images/logo.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isProductOpen, setIsProductOpen] = useState(false);
 
   const products = [
     { label: "Bolts", path: "/products/bolts" },
@@ -37,7 +38,6 @@ const Navbar = () => {
         </div>
 
         {/* --- DESKTOP NAVIGATION --- */}
-        {/* font-serif applied here */}
         <ul className="hidden lg:flex items-center gap-8 lg:gap-12 font-serif font-bold text-[17px] text-[#6c757d] tracking-wider">
           <li className="hover:text-black transition-colors"><Link to="/">Home</Link></li>
           <li className="hover:text-black transition-colors"><Link to="/about">About</Link></li>
@@ -74,31 +74,40 @@ const Navbar = () => {
 
       {/* --- MOBILE MENU OVERLAY --- */}
       <div className={`${isOpen ? 'block' : 'hidden'} lg:hidden bg-white pb-6`}>
-        {/* Changed from font-sans to font-serif */}
         <ul className="flex flex-col font-serif font-bold text-[16px] text-[#6c757d] space-y-1">
           <li><Link to="/" onClick={() => setIsOpen(false)} className="block py-2.5 px-6 hover:text-black">Home</Link></li>
           <li><Link to="/about" onClick={() => setIsOpen(false)} className="block py-2.5 px-6 hover:text-black">About</Link></li>
           
-          <li className="px-6 py-2.5 flex items-center gap-2 hover:text-black cursor-pointer">
-            Product Range <span className="text-[10px]">▼</span>
+          {/* Mobile Product Range Toggle with Arrow near text */}
+          <li 
+            className="px-6 py-2.5 flex items-center justify-start gap-2 hover:text-black cursor-pointer"
+            onClick={() => setIsProductOpen(!isProductOpen)}
+          >
+            <span>Product Range</span>
+            <span className={`text-[10px] transition-transform duration-300 ${isProductOpen ? 'rotate-180' : ''}`}>▼</span>
           </li>
 
-          {/* Small, Compact Product Box */}
-          <div className="px-6">
-            <ul className="bg-[#f6e3a7] border border-black/10 rounded-sm w-[280px] sm:w-[320px]">
-              {products.map((item, index) => (
-                <li key={index} className="border-b border-black/5 last:border-0">
-                  <Link 
-                    to={item.path} 
-                    onClick={() => setIsOpen(false)} 
-                    className="block px-4 py-2 text-[#b00000] font-medium text-[15px] hover:bg-[#f0d68c]"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Compact Mobile Product Box */}
+          {isProductOpen && (
+            <div className="px-6 pb-2">
+              <ul className="bg-[#f6e3a7] border border-black/10 rounded-sm w-full max-w-[280px]">
+                {products.map((item, index) => (
+                  <li key={index} className="border-b border-black/5 last:border-0">
+                    <Link 
+                      to={item.path} 
+                      onClick={() => {
+                        setIsOpen(false);
+                        setIsProductOpen(false);
+                      }} 
+                      className="block px-4 py-2 text-[#b00000] font-medium text-[15px] hover:bg-[#f0d68c]"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <li><Link to="/quality" onClick={() => setIsOpen(false)} className="block py-2.5 px-6 hover:text-black">Quality Certifications</Link></li>
           <li><Link to="/enquiry" onClick={() => setIsOpen(false)} className="block py-2.5 px-6 hover:text-black">Enquiry Form</Link></li>
