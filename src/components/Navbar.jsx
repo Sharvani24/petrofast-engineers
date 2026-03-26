@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 
 const Navbar = () => {
-  // State to handle mobile menu visibility
   const [isOpen, setIsOpen] = useState(false);
 
   const products = [
@@ -23,10 +22,10 @@ const Navbar = () => {
 
   return (
     <nav className="w-full bg-white relative z-[100] border-b border-gray-100 shadow-sm">
-      {/* Container: flex-row for Desktop, justify-between to place hamburger correctly on Mobile */}
+      {/* Main Header Row */}
       <div className="flex items-center justify-between lg:justify-start py-6 lg:py-10 px-6 lg:pl-28">
         
-        {/* Logo Section */}
+        {/* Logo */}
         <div className="flex-shrink-0 lg:mr-24">
           <Link to="/">
             <img 
@@ -37,12 +36,11 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* --- DESKTOP NAVIGATION (Visible only on lg screens and up) --- */}
+        {/* --- DESKTOP NAVIGATION --- */}
         <ul className="hidden lg:flex items-center gap-8 lg:gap-12 font-serif font-bold text-[15px] text-[#6c757d] uppercase tracking-wider">
           <li className="hover:text-[#212529] transition-colors"><Link to="/">Home</Link></li>
           <li className="hover:text-[#212529] transition-colors"><Link to="/about">About</Link></li>
           
-          {/* Dropdown for Desktop */}
           <li className="group relative cursor-pointer hover:text-[#212529] transition-colors flex items-center gap-1 py-2">
             Product Range 
             <span className="text-[10px] ml-1 group-hover:rotate-180 transition-transform duration-300">▼</span>
@@ -62,36 +60,47 @@ const Navbar = () => {
           <li className="hover:text-[#212529] transition-colors"><Link to="/contact">Contact Us</Link></li>
         </ul>
 
-        {/* --- MOBILE HAMBURGER BUTTON (Visible only on Mobile/Tablet) --- */}
+        {/* Mobile Toggle Button */}
         <button 
           onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden p-2 border-2 border-gray-400 rounded-md focus:outline-none"
+          className="lg:hidden p-2 border border-gray-300 rounded focus:outline-none"
         >
-          {/* Hamburger Icon Bars */}
-          <div className="w-6 h-0.5 bg-gray-600 mb-1.5"></div>
-          <div className="w-6 h-0.5 bg-gray-600 mb-1.5"></div>
-          <div className="w-6 h-0.5 bg-gray-600"></div>
+          <div className="w-6 h-0.5 bg-gray-500 mb-1"></div>
+          <div className="w-6 h-0.5 bg-gray-500 mb-1"></div>
+          <div className="w-6 h-0.5 bg-gray-500"></div>
         </button>
       </div>
 
-      {/* --- MOBILE MENU OVERLAY (Appears when hamburger is clicked) --- */}
-      <div className={`${isOpen ? 'block' : 'hidden'} lg:hidden bg-white border-t border-gray-100`}>
-        <ul className="flex flex-col font-serif font-bold text-[16px] text-gray-700 uppercase p-6 space-y-4">
-          <li><Link to="/" onClick={() => setIsOpen(false)}>Home</Link></li>
-          <li><Link to="/about" onClick={() => setIsOpen(false)}>About</Link></li>
+      {/* --- MOBILE MENU OVERLAY --- */}
+      <div className={`${isOpen ? 'block' : 'hidden'} lg:hidden bg-white pb-6`}>
+        <ul className="flex flex-col font-sans font-bold text-[14px] text-[#212529] space-y-1">
+          <li><Link to="/" onClick={() => setIsOpen(false)} className="block py-2 px-6 hover:text-[#b00000]">Home</Link></li>
+          <li><Link to="/about" onClick={() => setIsOpen(false)} className="block py-2 px-6 hover:text-[#b00000]">About</Link></li>
           
-          {/* Mobile Product Range: Simplified as a sub-list */}
-          <li className="text-[#b00000]">Product Range</li>
-          <ul className="pl-4 space-y-2 normal-case font-medium text-[15px] border-l-2 border-gray-200">
-            {products.slice(0, 5).map((item, index) => ( // Showing first 5 for brevity
-              <li key={index}><Link to={item.path} onClick={() => setIsOpen(false)}>{item.label}</Link></li>
-            ))}
-            <li><Link to="/products" className="italic text-gray-500">View All Products...</Link></li>
-          </ul>
+          <li className="px-6 py-2 flex items-center gap-2">
+            Product Range <span className="text-[8px]">▼</span>
+          </li>
 
-          <li><Link to="/quality" onClick={() => setIsOpen(false)}>Quality Certifications</Link></li>
-          <li><Link to="/enquiry" onClick={() => setIsOpen(false)}>Enquiry Form</Link></li>
-          <li><Link to="/contact" onClick={() => setIsOpen(false)}>Contact Us</Link></li>
+          {/* Small, Compact Product Box */}
+          <div className="px-6">
+            <ul className="bg-[#f6e3a7] border border-black/10 rounded-sm w-[280px] sm:w-[320px]">
+              {products.map((item, index) => (
+                <li key={index} className="border-b border-black/5 last:border-0">
+                  <Link 
+                    to={item.path} 
+                    onClick={() => setIsOpen(false)} 
+                    className="block px-4 py-1.5 text-[#b00000] font-medium text-[14px] hover:bg-[#f0d68c]"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <li><Link to="/quality" onClick={() => setIsOpen(false)} className="block py-2 px-6 hover:text-[#b00000]">Quality Certifications</Link></li>
+          <li><Link to="/enquiry" onClick={() => setIsOpen(false)} className="block py-2 px-6 hover:text-[#b00000]">Enquiry Form</Link></li>
+          <li><Link to="/contact" onClick={() => setIsOpen(false)} className="block py-2 px-6 hover:text-[#b00000]">Contact Us</Link></li>
         </ul>
       </div>
     </nav>
